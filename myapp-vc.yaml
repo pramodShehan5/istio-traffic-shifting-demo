@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: myapp-vc
+spec:
+  hosts:
+    - myapp
+  http:
+    - match:
+        - headers:
+            end-user:
+              exact: jason
+      route:
+        - destination:
+            host: myapp
+            subset: v1
+    - route:
+        - destination:
+            host: myapp
+            subset: v2
